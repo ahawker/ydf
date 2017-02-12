@@ -16,6 +16,32 @@ tox-install:  ## Install dependencies required for local test execution using to
 tox: tox-install  ## Run test suite using tox.
 	@tox
 
+.PHONY: bump-patch
+bump-patch:  ## Bump package patch version, e.g. 0.0.1 -> 0.0.2.
+	@bumpversion patch
+
+.PHONY: bump-minor
+bump-minor:  ## Bump package minor version, e.g. 0.1.0 -> 0.2.0.
+	@bumpversion minor
+
+.PHONY: bump-major
+bump-major:  ## Bump package major version, e.g. 1.0.0 -> 2.0.0.
+	@bumpversion major
+
+.PHONY: git-push-with-tags
+git-push-with-tags:  ## Push latest changes to remote with tags.
+	@git push
+	@git push --tags
+
+.PHONY: push-patch
+push-patch: bump-patch git-push-with-tags  ## Bump package patch version and push changes to remote.
+
+.PHONY: push-minor
+push-minor: bump-minor git-push-with-tags  ## Bump package minor version and push changes to remote.
+
+.PHONY: push-major
+push-major: bump-major git-push-with-tags  ## Bump package major version and push changes to remote.
+
 .PHONY: clean-pyc
 clean-pyc:  ## Remove local python cache files.
 	@find . -name '__pycache__' -type d -exec rm -r {} +
