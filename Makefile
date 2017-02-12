@@ -16,6 +16,13 @@ tox-install:  ## Install dependencies required for local test execution using to
 tox: tox-install  ## Run test suite using tox.
 	@tox
 
+.PHONY: travis-install
+travis-install:  ## Install dependencies for travis-ci.org integration.
+	@pip install -q -r requirements/travis.txt
+
+.PHONY: travis-script
+travis-script: travis-install tox  ## Entry point for travis-ci.org execution.
+
 .PHONY: bump-patch
 bump-patch:  ## Bump package patch version, e.g. 0.0.1 -> 0.0.2.
 	@bumpversion patch
