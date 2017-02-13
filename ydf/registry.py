@@ -6,9 +6,8 @@
 """
 
 import collections
-import re
 
-from ydf import log
+from ydf import handlers, log
 
 
 __all__ = ['global_registry']
@@ -20,15 +19,13 @@ class Registry:
     the :class:`~ydf.instructions.InstructionsMeta` metaclass.
     """
 
-    def __init__(self, pattern='^from_(\w+)$', logger=None):
+    def __init__(self, logger=None):
         """
         Create a new :class:`~ydf.registry.Registry` instance.
 
-        :param pattern: (Optional) regex pattern for finding type handler class functions.
         :param logger: (Optional) logger instance to use.
         """
         self.registry = collections.defaultdict(dict)
-        self.pattern = re.compile(pattern, re.IGNORECASE)
         self.logger = logger or log.get_logger(__name__)
 
     def is_registered(self, instruction_name):
@@ -40,22 +37,19 @@ class Registry:
         """
         return bool(self.registry[instruction_name])
 
-    def register(self, instruction_name, attrs):
+    def register(self, instruction_name, instruction_cls):
         """
         Register all discovered type handler functions in the given class attribute dict for the given
         instruction.
 
         :param instruction_name: Name of the instruction to register.
-        :param attrs: Dict of class attributes to check for type handlers
+        :param instruction_cls: Instance of a class to examine, looking for registered type handler functions.
         :return: `None`
         """
-        for name, func in attrs.items():
-            match = self.pattern.match(name)
-            if not match:
-                continue
-            func_type = match.group(1)
-            self.logger.debug('Registering {} type handler for {}'.format(func_type, instruction_name))
-            self.registry[instruction_name][func_type] = func
+        for handler_type, handler_func in handlers.get_type_handlers(instruction_cls).items():
+            self.registry[instruction_name][handler_type] = handler_func
+            self.logger.debug('Registered handler for instruction={} type={}'.format(instruction_name,
+                                                                                     handler_type.__name__))
 
 
 #: Default type handler registry used by :class:`~ydf.instructions.InstructionsMeta` to
