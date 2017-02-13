@@ -8,7 +8,7 @@
 import functools
 
 
-def handles(handles_type):
+def register(handles_type):
     """
     Decorate methods to indicate what python type they support instruction conversion from.
 
@@ -27,10 +27,10 @@ def handles(handles_type):
 def get_type_handlers(cls):
     """
     Process the given :class:`~ydf.instructions.Instruction` derived class for type handler functions
-    that are decorated with :func:`~ydf.handlers.handles`.
+    that are decorated with :func:`~ydf.handlers.register`.
 
     :param cls: A :class:`~ydf.instructions.Instruction` derived class
-    :return: A dict containing all functions decorated with :func:`~ydf.handlers.handles`
+    :return: A dict containing all functions decorated with :func:`~ydf.handlers.register`
     """
     return dict(((handler.__handles_type__, handler)
                  for handler in (getattr(cls, attr)
