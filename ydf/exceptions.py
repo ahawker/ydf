@@ -17,8 +17,8 @@ class ArgumentMissingError(InstructionError):
     Exception raised when creation of an instruction is missing a required argument.
     """
 
-    def __init__(self, name, arg):
-        msg = 'Instruction "{}" is missing argument "{}"'.format(name, arg)
+    def __init__(self, name, arg, desc):
+        msg = '[{}] - Name: {} - Desc: {}'.format(name, arg, desc)
         super(ArgumentMissingError, self).__init__(msg)
 
 
@@ -38,7 +38,7 @@ class ArgumentDisjointedError(InstructionError):
     """
 
     def __init__(self, name, arg1, arg2):
-        msg = 'Instruction "{}" supports "{}" or "{}" arguments not both'.format(name, arg1, arg2)
+        msg = '[{}] - Name: {} - Other: {}'.format(name, arg1, arg2)
         super(ArgumentDisjointedError, self).__init__(msg)
 
 
@@ -47,8 +47,7 @@ class ArgumentTypeError(InstructionError):
     Exception raised when creation of an instruction is given an argument of the wrong type.
     """
 
-    def __init__(self, name, arg, expected_type, unexpected_type):
-        msg = 'Instruction "{}" expects argument "{}" of type "{}" but got "{}"'.format(name, arg,
-                                                                                        expected_type.__name__,
-                                                                                        unexpected_type.__name__)
+    def __init__(self, name, arg, expected_type, received_type):
+        msg = '[{}] - Name: {} - Expected: {} - Received: {}'.format(name, arg, expected_type.__name__,
+                                                                     received_type.__name__)
         super(ArgumentTypeError, self).__init__(msg)
