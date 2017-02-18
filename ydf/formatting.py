@@ -34,3 +34,18 @@ def dict_with_conditional_line_breaks(dct, delimiter='=', line_break=' \\\n', in
     key_value_fmt = '"{}"' if quote_escape else '{}'
     return (line_break + ' ' * indent).join(key_value_fmt.format(k) + delimiter + key_value_fmt.format(v)
                                             for k, v in dct.items())
+
+
+def str_join_with_conditional_delimiter(parts, delimiter=None):
+    """
+    Build a string by performing an optional join if given a iterable and delimiter.
+
+    :param parts: String or iterable to join
+    :param delimiter: (Optional) String delimiter to use for join
+    :return: Original string or multi part string joined with delimiter
+    """
+    if isinstance(parts, str):
+        return parts
+
+    delimiter = delimiter or ''
+    return delimiter.join(part for part in parts if part)
