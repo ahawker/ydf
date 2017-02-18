@@ -134,3 +134,43 @@ def run_dict(arg):
     executable = arg['executable']
     params = arg.get('params', [])
     return json.dumps([executable, *params])
+
+
+@arguments.required(name='string', required_type=str)
+@instruction(name=CMD, type=str, desc=descriptions.CMD_STR)
+def cmd_str(arg):
+    """
+    Convert a :class:`~str` to a `CMD` instruction.
+
+    :param arg: String that represents instruction arguments.
+    :return: Fully-qualified `CMD` instruction.
+    """
+    return arg
+
+
+@arguments.required(name='list', required_type=list)
+@instruction(name=CMD, type=list, desc=descriptions.CMD_LIST)
+def cmd_list(arg):
+    """
+    Convert a :class:`~list` to a `CMD` instruction.
+
+    :param arg: List that represents instruction arguments.
+    :return: Fully-qualified `CMD` instruction.
+    """
+    return json.dumps(arg)
+
+
+@arguments.optional_dict_key(name='params', required_type=list)
+@arguments.required_dict_key(name='executable', required_type=str)
+@arguments.required(name='dict', required_type=dict)
+@instruction(name=CMD, type=dict, desc=descriptions.CMD_LIST)
+def cmd_dict(arg):
+    """
+    Convert a :class:`~dict` to a `CMD` instruction.
+
+    :param arg: Dict that represents instruction arguments.
+    :return: Fully-qualified `CMD` instruction.
+    """
+    executable = arg['executable']
+    params = arg.get('params', [])
+    return json.dumps([executable, *params])
