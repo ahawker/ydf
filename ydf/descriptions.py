@@ -15,3 +15,5 @@ RUN_DICT = '{"executable": "...", "params": ["...", "...", "..."]}'
 CMD_STR = 'command param1 param2'
 CMD_LIST = '["param1", "param2"]'
 CMD_DICT = '{"executable": "...", "params": ["...", "..."]}'
+
+LABEL_DICT = '{"key1": "value1", "key2": "value2"}'

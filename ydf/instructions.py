@@ -174,3 +174,16 @@ def cmd_dict(arg):
     executable = arg['executable']
     params = arg.get('params', [])
     return json.dumps([executable, *params])
+
+
+@arguments.required(name='dict', required_type=dict)
+@instruction(name=LABEL, type=dict, desc=descriptions.LABEL_DICT)
+def label_dict(arg):
+    """
+    Convert a :class:`~dict` to a `LABEL` instruction.
+
+    :param arg: Dict that represents instruction arguments.
+    :return: Fully-qualified `LABEL` instruction.
+    """
+    indent = len(label_dict.instruction_name) + 1
+    return formatting.dict_with_conditional_line_breaks(arg, indent=indent)
