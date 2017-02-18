@@ -51,3 +51,13 @@ class ArgumentTypeError(InstructionError):
         msg = '[{}] - Name: {} - Expected: {} - Received: {}'.format(name, arg, expected_type.__name__,
                                                                      received_type.__name__)
         super(ArgumentTypeError, self).__init__(msg)
+
+
+class ArgumentPatternError(InstructionError):
+    """
+    Exception raised when an argument does not match the expected regex pattern.
+    """
+
+    def __init__(self, name, arg, pattern):
+        msg = '[{}] - Name: {} - Pattern: {}'.format(name, arg, pattern)
+        super(ArgumentPatternError, self).__init__(msg)

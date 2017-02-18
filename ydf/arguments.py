@@ -6,6 +6,7 @@
 """
 
 import functools
+import re
 
 from ydf import exceptions, meta
 
@@ -30,6 +31,28 @@ def required(name, required_type):
             if not isinstance(arg, required_type):
                 raise exceptions.ArgumentTypeError(func.instruction_name, name, required_type, type(arg))
             return func(arg)
+        return wrapper
+    return decorator
+
+
+def required_regex_match(name, pattern):
+    """
+    Decorate an instruction function which consumes a string to run a regex capture against it.
+
+    :param name: Argument name
+    :param pattern: Regex pattern
+    """
+    def decorator(func):
+        if not meta.is_instruction(func):
+            raise exceptions.InstructionError("@arguments.required_regex_match must be used in"
+                                              "conjunction with @instructions.instruction")
+
+        @functools.wraps(func)
+        def wrapper(arg):
+            match = re.match(pattern, arg)
+            if not match:
+                raise exceptions.ArgumentPatternError(func.instruction_name, name, pattern)
+            return func(match.groupdict())
         return wrapper
     return decorator
 
