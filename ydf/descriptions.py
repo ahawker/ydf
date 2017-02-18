@@ -26,3 +26,6 @@ ENV_DICT = '<key>=<value> <key>=<value>'
 
 ADD_STR = '<src>... <dst>'
 ADD_LIST = '["<src>", ..., "<dest>"]'
+
+COPY_STR = '<src>... <dst>'
+COPY_LIST = '["<src>", ..., "<dest>"]'

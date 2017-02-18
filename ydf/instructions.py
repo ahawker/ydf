@@ -260,3 +260,27 @@ def add_list(arg):
     :return: Fully-qualified `ADD` instruction.
     """
     return json.dumps(arg)
+
+
+@arguments.required(name='str', required_type=str)
+@instruction(name=COPY, type=str, desc=descriptions.COPY_STR)
+def copy_str(arg):
+    """
+    Convert a :class:`~str` to a `COPY` instruction.
+
+    :param arg: String that represents an instruction arguments.
+    :return: Fully-qualified `COPY` instruction.
+    """
+    return arg
+
+
+@arguments.required(name='list', required_type=list)
+@instruction(name=COPY, type=list, desc=descriptions.COPY_LIST)
+def copy_list(arg):
+    """
+    Convert a :class:`~list` to a `COPY` instruction.
+
+    :param arg: List that represents an instruction arguments.
+    :return: Fully-qualified `COPY` instruction.
+    """
+    return json.dumps(arg)
