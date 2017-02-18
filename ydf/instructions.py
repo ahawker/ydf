@@ -8,7 +8,7 @@
 import collections
 import functools
 
-from ydf import meta
+from ydf import arguments, descriptions, formatting, meta
 
 
 __all__ = []
@@ -61,3 +61,34 @@ def instruction(name, type, desc):
         wrapper.instruction_desc = desc
         return wrapper
     return decorator
+
+
+@arguments.required_regex_match(name='string', pattern='(?P<image>\w+)(?P<delimiter>[:@])?(?P<tag_or_digest>\w+)?')
+@arguments.required(name='capture', required_type=dict)
+@instruction(name=FROM, type=str, desc=descriptions.FROM_STR)
+def from_str(arg):
+    """
+    Convert a string to a `FROM` instruction.
+
+    :param arg: String that represents an instruction.
+    :return: Fully-qualified `FROM` instruction string.
+    """
+    image, delimiter, tag_or_digest = (arg.get(k) for k in ('image', 'delimiter', 'tag_or_digest'))
+    return formatting.str_join_with_conditional_delimiter((image, tag_or_digest), delimiter)
+
+
+@arguments.optional_dict_key(name='digest', required_type=str, mutually_exclusive_with='tag')
+@arguments.optional_dict_key(name='tag', required_type=str, mutually_exclusive_with='digest')
+@arguments.required_dict_key(name='image', required_type=str)
+@arguments.required(name='dict', required_type=dict)
+@instruction(name=FROM, type=dict, desc=descriptions.FROM_DICT)
+def from_dict(arg):
+    """
+    Convert a :class:`~dict` to a `FROM` instruction.
+
+    :param arg: Dict that represents an instruction.
+    :return: Fully-qualified `FROM` instruction string.
+    """
+    image, tag, digest = (arg.get(k) for k in ('image', 'tag', 'digest'))
+    delimiter = ':' if tag else '@'
+    return formatting.str_join_with_conditional_delimiter((image, tag, digest), delimiter)
