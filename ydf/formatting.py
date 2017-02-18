@@ -91,4 +91,4 @@ def str_join_with_conditional_delimiter(parts, delimiter=DEFAULT_STR_JOIN_DELIMI
         return parts
 
     delimiter = delimiter or ''
-    return delimiter.join(part for part in parts if part)
+    return delimiter.join(str(part) for part in parts if part)

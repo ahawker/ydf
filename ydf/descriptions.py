@@ -17,3 +17,6 @@ CMD_LIST = '["param1", "param2"]'
 CMD_DICT = '{"executable": "...", "params": ["...", "..."]}'
 
 LABEL_DICT = '{"key1": "value1", "key2": "value2"}'
+
+EXPOSE_INT = '<port>'
+EXPOSE_LIST = '<port> <port> <port>'

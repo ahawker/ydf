@@ -187,3 +187,27 @@ def label_dict(arg):
     """
     indent = len(label_dict.instruction_name) + 1
     return formatting.dict_with_conditional_line_breaks(arg, indent=indent)
+
+
+@arguments.required(name='int', required_type=int)
+@instruction(name=EXPOSE, type=int, desc=descriptions.EXPOSE_INT)
+def expose_int(arg):
+    """
+    Convert a :class:`~int` to a `EXPOSE` instruction.
+
+    :param arg: Int that represents instruction arguments.
+    :return: Fully-qualified `EXPOSE` instruction.
+    """
+    return str(arg)
+
+
+@arguments.required(name='list', required_type=list)
+@instruction(name=EXPOSE, type=list, desc=descriptions.EXPOSE_LIST)
+def expose_list(arg):
+    """
+    Convert a :class:`~list` to a `EXPOSE` instruction.
+
+    :param arg: List that represents instruction arguments.
+    :return: Fully-qualified `EXPOSE` instruction.
+    """
+    return formatting.str_join_with_conditional_delimiter(arg, delimiter=' ')
