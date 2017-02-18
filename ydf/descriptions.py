@@ -23,3 +23,6 @@ EXPOSE_LIST = '<port> <port> <port>'
 
 ENV_STR = '<key> <value>'
 ENV_DICT = '<key>=<value> <key>=<value>'
+
+ADD_STR = '<src>... <dst>'
+ADD_LIST = '["<src>", ..., "<dest>"]'

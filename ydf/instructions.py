@@ -236,3 +236,27 @@ def env_dict(arg):
     """
     indent = len(env_dict.instruction_name) + 1
     return formatting.dict_with_conditional_line_breaks(arg, indent=indent)
+
+
+@arguments.required(name='str', required_type=str)
+@instruction(name=ADD, type=str, desc=descriptions.ADD_STR)
+def add_str(arg):
+    """
+    Convert a :class:`~str` to a `ADD` instruction.
+
+    :param arg: String that represents an instruction arguments.
+    :return: Fully-qualified `ADD` instruction.
+    """
+    return arg
+
+
+@arguments.required(name='list', required_type=list)
+@instruction(name=ADD, type=list, desc=descriptions.ADD_LIST)
+def add_list(arg):
+    """
+    Convert a :class:`~list` to a `ADD` instruction.
+
+    :param arg: List that represents an instruction arguments.
+    :return: Fully-qualified `ADD` instruction.
+    """
+    return json.dumps(arg)
