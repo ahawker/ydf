@@ -211,3 +211,28 @@ def expose_list(arg):
     :return: Fully-qualified `EXPOSE` instruction.
     """
     return formatting.str_join_with_conditional_delimiter(arg, delimiter=' ')
+
+
+@arguments.required(name='str', required_type=str)
+@instruction(name=ENV, type=str, desc=descriptions.ENV_STR)
+def env_str(arg):
+    """
+    Convert a :class:`~str` to a `ENV` instruction.
+
+    :param arg: String that represents an instruction arguments.
+    :return: Fully-qualified `ENV` instruction.
+    """
+    return arg
+
+
+@arguments.required(name='dict', required_type=dict)
+@instruction(name=ENV, type=dict, desc=descriptions.ENV_DICT)
+def env_dict(arg):
+    """
+    Convert a :class:`~dict` to a `ENV` instruction.
+
+    :param arg: Dict that represents an instruction arguments.
+    :return: Fully-qualified `ENV` instruction.
+    """
+    indent = len(env_dict.instruction_name) + 1
+    return formatting.dict_with_conditional_line_breaks(arg, indent=indent)

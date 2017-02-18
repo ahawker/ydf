@@ -20,3 +20,6 @@ LABEL_DICT = '{"key1": "value1", "key2": "value2"}'
 
 EXPOSE_INT = '<port>'
 EXPOSE_LIST = '<port> <port> <port>'
+
+ENV_STR = '<key> <value>'
+ENV_DICT = '<key>=<value> <key>=<value>'
