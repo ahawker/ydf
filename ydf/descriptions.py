@@ -33,3 +33,6 @@ COPY_LIST = '["<src>", ..., "<dest>"]'
 ENTRYPOINT_STR = 'command param1 param2'
 ENTRYPOINT_LIST = '["executable", "param1", "param2"]'
 ENTRYPOINT_DICT = '{"executable": "...", "params": ["...", "..."]}'
+
+VOLUME_STR = '<path>'
+VOLUME_LIST = '["<path>", "<path>", "<path>"]'

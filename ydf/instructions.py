@@ -324,3 +324,27 @@ def entrypoint_dict(arg):
     executable = arg['executable']
     params = arg.get('params', [])
     return json.dumps([executable] + params)
+
+
+@arguments.required(name='string', required_type=str)
+@instruction(name=VOLUME, type=str, desc=descriptions.VOLUME_STR)
+def volume_str(arg):
+    """
+    Convert a :class:`~str` to a `VOLUME` instruction.
+
+    :param arg: String that represents instruction arguments.
+    :return: Fully-qualified `VOLUME` instruction.
+    """
+    return arg
+
+
+@arguments.required(name='list', required_type=list)
+@instruction(name=VOLUME, type=list, desc=descriptions.VOLUME_LIST)
+def volume_list(arg):
+    """
+    Convert a :class:`~list` to a `VOLUME` instruction.
+
+    :param arg: List that represents instruction arguments.
+    :return: Fully-qualified `VOLUME` instruction.
+    """
+    return json.dumps(arg)
