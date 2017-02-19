@@ -12,6 +12,16 @@ class InstructionError(Exception):
     """
 
 
+class ArgumentInstructionConstraintError(InstructionError):
+    """
+    Exception raised when an argument constraint decorates on a function that is not a instruction.
+    """
+
+    def __init__(self, func, constraint):
+        msg = 'Function "{}" uses constraint "{}" decorator but is not an instruction'.format(func, constraint)
+        super(ArgumentInstructionConstraintError, self).__init__(msg)
+
+
 class ArgumentMissingError(InstructionError):
     """
     Exception raised when creation of an instruction is missing a required argument.

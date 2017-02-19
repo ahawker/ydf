@@ -21,8 +21,7 @@ def required(name, required_type):
     """
     def decorator(func):
         if not meta.is_instruction(func):
-            raise exceptions.InstructionError("@arguments.required must be used in"
-                                              "conjunction with @instructions.instruction")
+            raise exceptions.ArgumentInstructionConstraintError(func.__name__, required.__name__)
 
         @functools.wraps(func)
         def wrapper(arg):
@@ -46,8 +45,7 @@ def required_numeric_bounds(name, lower, upper):
     """
     def decorator(func):
         if not meta.is_instruction(func):
-            raise exceptions.InstructionError("@arguments.required_numeric_range must be used in"
-                                              "conjunction with @instructions.instruction")
+            raise exceptions.ArgumentInstructionConstraintError(func.__name__, required_numeric_bounds.__name__)
 
         @functools.wraps(func)
         def wrapper(arg):
@@ -67,8 +65,7 @@ def required_regex_match(name, pattern):
     """
     def decorator(func):
         if not meta.is_instruction(func):
-            raise exceptions.InstructionError("@arguments.required_regex_match must be used in"
-                                              "conjunction with @instructions.instruction")
+            raise exceptions.ArgumentInstructionConstraintError(func.__name__, required_regex_match.__name__)
 
         @functools.wraps(func)
         def wrapper(arg):
@@ -90,8 +87,7 @@ def required_dict_key(name, required_type):
     """
     def decorator(func):
         if not meta.is_instruction(func):
-            raise exceptions.InstructionError("@arguments.required_dict_key must be used in"
-                                              "conjunction with @instructions.instruction")
+            raise exceptions.ArgumentInstructionConstraintError(func.__name__, required_dict_key.__name__)
 
         @functools.wraps(func)
         def wrapper(arg):
@@ -116,8 +112,7 @@ def optional_dict_key(name, required_type, mutually_exclusive_with=None):
     """
     def decorator(func):
         if not meta.is_instruction(func):
-            raise exceptions.InstructionError("@arguments.optional_dict_key must be used in"
-                                              "conjunction with @instructions.instruction")
+            raise exceptions.ArgumentInstructionConstraintError(func.__name__, optional_dict_key.__name__)
 
         @functools.wraps(func)
         def wrapper(arg):
