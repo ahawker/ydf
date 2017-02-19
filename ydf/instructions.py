@@ -284,3 +284,43 @@ def copy_list(arg):
     :return: Fully-qualified `COPY` instruction.
     """
     return json.dumps(arg)
+
+
+@arguments.required(name='string', required_type=str)
+@instruction(name=ENTRYPOINT, type=str, desc=descriptions.ENTRYPOINT_STR)
+def entrypoint_str(arg):
+    """
+    Convert a :class:`~str` to a `ENTRYPOINT` instruction.
+
+    :param arg: String that represents instruction arguments.
+    :return: Fully-qualified `ENTRYPOINT` instruction.
+    """
+    return arg
+
+
+@arguments.required(name='list', required_type=list)
+@instruction(name=ENTRYPOINT, type=list, desc=descriptions.ENTRYPOINT_LIST)
+def entrypoint_list(arg):
+    """
+    Convert a :class:`~list` to a `ENTRYPOINT` instruction.
+
+    :param arg: List that represents instruction arguments.
+    :return: Fully-qualified `ENTRYPOINT` instruction.
+    """
+    return json.dumps(arg)
+
+
+@arguments.optional_dict_key(name='params', required_type=list)
+@arguments.required_dict_key(name='executable', required_type=str)
+@arguments.required(name='dict', required_type=dict)
+@instruction(name=ENTRYPOINT, type=dict, desc=descriptions.ENTRYPOINT_LIST)
+def entrypoint_dict(arg):
+    """
+    Convert a :class:`~dict` to a `ENTRYPOINT` instruction.
+
+    :param arg: Dict that represents instruction arguments.
+    :return: Fully-qualified `ENTRYPOINT` instruction.
+    """
+    executable = arg['executable']
+    params = arg.get('params', [])
+    return json.dumps([executable] + params)

@@ -29,3 +29,7 @@ ADD_LIST = '["<src>", ..., "<dest>"]'
 
 COPY_STR = '<src>... <dst>'
 COPY_LIST = '["<src>", ..., "<dest>"]'
+
+ENTRYPOINT_STR = 'command param1 param2'
+ENTRYPOINT_LIST = '["executable", "param1", "param2"]'
+ENTRYPOINT_DICT = '{"executable": "...", "params": ["...", "..."]}'
