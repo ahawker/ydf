@@ -133,7 +133,7 @@ def run_dict(arg):
     """
     executable = arg['executable']
     params = arg.get('params', [])
-    return json.dumps([executable, *params])
+    return json.dumps([executable] + params)
 
 
 @arguments.required(name='string', required_type=str)
@@ -173,7 +173,7 @@ def cmd_dict(arg):
     """
     executable = arg['executable']
     params = arg.get('params', [])
-    return json.dumps([executable, *params])
+    return json.dumps([executable] + params)
 
 
 @arguments.required(name='dict', required_type=dict)
