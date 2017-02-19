@@ -61,3 +61,14 @@ class ArgumentPatternError(InstructionError):
     def __init__(self, name, arg, pattern):
         msg = '[{}] - Name: {} - Pattern: {}'.format(name, arg, pattern)
         super(ArgumentPatternError, self).__init__(msg)
+
+
+class ArgumentNumericBoundsError(InstructionError):
+    """
+    Exception raised when an argument is given a numeric value that is not within the
+    expected lower/upper bounds.
+    """
+
+    def __init__(self, name, arg, value, lower, upper):
+        msg = '[{}] - Name: {} - Value: {} - Lower: {} - Upper: {}'.format(name, arg, value, lower, upper)
+        super(ArgumentNumericBoundsError, self).__init__(msg)

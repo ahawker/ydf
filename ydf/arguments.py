@@ -35,6 +35,29 @@ def required(name, required_type):
     return decorator
 
 
+def required_numeric_bounds(name, lower, upper):
+    """
+    Decorate an instruction function which consumes an integration to enforce a lower and upper bound
+    on the value.
+
+    :param name: Argument name
+    :param lower: Lower bound of the argument value (inclusive)
+    :param upper: Upper bound of the argument value (inclusive)
+    """
+    def decorator(func):
+        if not meta.is_instruction(func):
+            raise exceptions.InstructionError("@arguments.required_numeric_range must be used in"
+                                              "conjunction with @instructions.instruction")
+
+        @functools.wraps(func)
+        def wrapper(arg):
+            if not (lower <= arg <= upper):
+                raise exceptions.ArgumentNumericBoundsError(func.instruction_name, name, arg, lower, upper)
+            return func(arg)
+        return wrapper
+    return decorator
+
+
 def required_regex_match(name, pattern):
     """
     Decorate an instruction function which consumes a string to run a regex capture against it.

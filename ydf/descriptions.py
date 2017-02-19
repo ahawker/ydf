@@ -36,3 +36,6 @@ ENTRYPOINT_DICT = '{"executable": "...", "params": ["...", "..."]}'
 
 VOLUME_STR = '<path>'
 VOLUME_LIST = '["<path>", "<path>", "<path>"]'
+
+USER_STR = '<username>'
+USER_INT = '<uid>'

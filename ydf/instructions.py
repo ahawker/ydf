@@ -348,3 +348,28 @@ def volume_list(arg):
     :return: Fully-qualified `VOLUME` instruction.
     """
     return json.dumps(arg)
+
+
+@arguments.required(name='username', required_type=str)
+@instruction(name=USER, type=str, desc=descriptions.USER_STR)
+def user_str(arg):
+    """
+    Convert a :class:`~str` to a `USER` instruction.
+
+    :param arg: String that represents instruction arguments.
+    :return: Fully-qualified `USER` instruction.
+    """
+    return arg
+
+
+@arguments.required_numeric_bounds(name='uid', lower=0, upper=2**32 - 1)
+@arguments.required(name='uid', required_type=int)
+@instruction(name=USER, type=int, desc=descriptions.USER_INT)
+def user_int(arg):
+    """
+    Convert a :class:`~int` to a `USER` instruction.
+
+    :param arg: Int that represents instruction arguments.
+    :return: Fully-qualified `USER` instruction.
+    """
+    return str(arg)
