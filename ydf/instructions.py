@@ -64,8 +64,8 @@ def instruction(name, type, desc):
     return decorator
 
 
+@arguments.required(name='string', required_type=str)
 @arguments.required_regex_match(name='string', pattern='(?P<image>\w+)(?P<delimiter>[:@])?(?P<tag_or_digest>\w+)?')
-@arguments.required(name='capture', required_type=dict)
 @instruction(name=FROM, type=str, desc=descriptions.FROM_STR)
 def from_str(arg):
     """
@@ -78,10 +78,10 @@ def from_str(arg):
     return formatting.str_join_with_conditional_delimiter((image, tag_or_digest), delimiter)
 
 
-@arguments.optional_dict_key(name='digest', required_type=str, mutually_exclusive_with='tag')
-@arguments.optional_dict_key(name='tag', required_type=str, mutually_exclusive_with='digest')
-@arguments.required_dict_key(name='image', required_type=str)
 @arguments.required(name='dict', required_type=dict)
+@arguments.required_dict_key(name='image', required_type=str)
+@arguments.optional_dict_key(name='tag', required_type=str, mutually_exclusive_with='digest')
+@arguments.optional_dict_key(name='digest', required_type=str, mutually_exclusive_with='tag')
 @instruction(name=FROM, type=dict, desc=descriptions.FROM_DICT)
 def from_dict(arg):
     """
@@ -120,9 +120,9 @@ def run_list(arg):
     return formatting.list_with_conditional_line_breaks(arg, indent=indent, quote_escape=True)
 
 
-@arguments.optional_dict_key(name='params', required_type=list)
-@arguments.required_dict_key(name='executable', required_type=str)
 @arguments.required(name='dict', required_type=dict)
+@arguments.required_dict_key(name='executable', required_type=str)
+@arguments.optional_dict_key(name='params', required_type=list)
 @instruction(name=RUN, type=dict, desc=descriptions.RUN_DICT)
 def run_dict(arg):
     """
@@ -160,9 +160,9 @@ def cmd_list(arg):
     return json.dumps(arg)
 
 
-@arguments.optional_dict_key(name='params', required_type=list)
-@arguments.required_dict_key(name='executable', required_type=str)
 @arguments.required(name='dict', required_type=dict)
+@arguments.required_dict_key(name='executable', required_type=str)
+@arguments.optional_dict_key(name='params', required_type=list)
 @instruction(name=CMD, type=dict, desc=descriptions.CMD_LIST)
 def cmd_dict(arg):
     """
@@ -310,9 +310,9 @@ def entrypoint_list(arg):
     return json.dumps(arg)
 
 
-@arguments.optional_dict_key(name='params', required_type=list)
-@arguments.required_dict_key(name='executable', required_type=str)
 @arguments.required(name='dict', required_type=dict)
+@arguments.required_dict_key(name='executable', required_type=str)
+@arguments.optional_dict_key(name='params', required_type=list)
 @instruction(name=ENTRYPOINT, type=dict, desc=descriptions.ENTRYPOINT_LIST)
 def entrypoint_dict(arg):
     """
@@ -362,8 +362,8 @@ def user_str(arg):
     return arg
 
 
-@arguments.required_numeric_bounds(name='uid', lower=0, upper=2**32 - 1)
 @arguments.required(name='uid', required_type=int)
+@arguments.required_numeric_bounds(name='uid', lower=0, upper=2**32 - 1)
 @instruction(name=USER, type=int, desc=descriptions.USER_INT)
 def user_int(arg):
     """
