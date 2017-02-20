@@ -373,3 +373,15 @@ def user_int(arg):
     :return: Fully-qualified `USER` instruction.
     """
     return str(arg)
+
+
+@arguments.required(name='dir', required_type=str)
+@instruction(name=WORKDIR, type=str, desc=descriptions.WORKDIR_STR)
+def workdir_str(arg):
+    """
+    Convert a :class:`~str` to a `WORKDIR` instruction.
+
+    :param arg: String that represents instruction arguments.
+    :return: Fully-qualified `WORKDIR` instruction.
+    """
+    return arg

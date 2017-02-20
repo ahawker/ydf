@@ -39,3 +39,5 @@ VOLUME_LIST = '["<path>", "<path>", "<path>"]'
 
 USER_STR = '<username>'
 USER_INT = '<uid>'
+
+WORKDIR_STR = '<path>'
