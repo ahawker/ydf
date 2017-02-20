@@ -82,3 +82,13 @@ class ArgumentNumericBoundsError(InstructionError):
     def __init__(self, name, arg, value, lower, upper):
         msg = '[{}] - Name: {} - Value: {} - Lower: {} - Upper: {}'.format(name, arg, value, lower, upper)
         super(ArgumentNumericBoundsError, self).__init__(msg)
+
+
+class ArgumentCollectionLengthError(InstructionError):
+    """
+    Exception raised when an argument is a collection and is not of the expected size.
+    """
+
+    def __init__(self, name, arg, expected_length, received_length):
+        msg = '[{}] - Name: {} - Expected: {} - Received: {}'.format(name, arg, expected_length, received_length)
+        super(ArgumentCollectionLengthError, self).__init__(msg)

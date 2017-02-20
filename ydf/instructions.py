@@ -385,3 +385,31 @@ def workdir_str(arg):
     :return: Fully-qualified `WORKDIR` instruction.
     """
     return arg
+
+
+@arguments.required(name='arg', required_type=str)
+@arguments.required_regex_match(name='string', pattern='^(?P<name>\w+)((?:\s*?=\s*?)(?P<default_value>\w+))?$')
+@instruction(name=ARG, type=str, desc=descriptions.ARG_STR)
+def arg_str(arg):
+    """
+    Convert a :class:`~str` to a `ARG` instruction.
+
+    :param arg: String that represents instruction arguments.
+    :return: Fully-qualified `ARG` instruction.
+    """
+    name, default_value = arg['name'], arg.get('default_value')
+    return formatting.str_join_with_conditional_delimiter((name, default_value), '=')
+
+
+@arguments.required(name='arg', required_type=dict)
+@arguments.required_collection_length(name='arg', length=1)
+@instruction(name=ARG, type=dict, desc=descriptions.ARG_DICT)
+def arg_dict(arg):
+    """
+    Convert a :class:`~dict` to a `ARG` instruction.
+
+    :param arg: Dict that represents instruction arguments.
+    :return: Fully-qualified `ARG` instruction.
+    """
+    name, default_value = list(arg.items())[0]
+    return formatting.str_join_with_conditional_delimiter((name, default_value), '=')

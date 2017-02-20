@@ -41,3 +41,6 @@ USER_STR = '<username>'
 USER_INT = '<uid>'
 
 WORKDIR_STR = '<path>'
+
+ARG_STR = '<name>[=<default value>]'
+ARG_DICT = '{"<name>": "<default_value>"}'

@@ -125,3 +125,24 @@ def optional_dict_key(name, required_type, mutually_exclusive_with=None):
             return func(arg)
         return wrapper
     return decorator
+
+
+def required_collection_length(name, length):
+    """
+    Decorate an instruction function which consumes a collection to enforce the collection size.
+
+    :param name: Name of the collection argument
+    :param length: Expected length of the collection
+    """
+    def decorator(func):
+        if not meta.is_instruction(func):
+            raise exceptions.ArgumentInstructionConstraintError(func.__name__, required_collection_length.__name__)
+
+        @functools.wraps(func)
+        def wrapper(arg):
+            received_length = len(arg)
+            if received_length != length:
+                raise exceptions.ArgumentCollectionLengthError(func.instruction_name, name, length, received_length)
+            return func(arg)
+        return wrapper
+    return decorator
