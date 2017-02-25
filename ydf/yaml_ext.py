@@ -11,6 +11,9 @@ from ruamel import yaml
 from ruamel.yaml import resolver
 
 
+__all__ = ['load_all', 'load_all_gen']
+
+
 class OrderedRoundTripLoader(yaml.RoundTripLoader):
     """
     Extends the default round trip YAML loader to use :class:`~collections.OrderedDict` for mapping
@@ -28,6 +31,16 @@ class OrderedRoundTripLoader(yaml.RoundTripLoader):
 
 
 def load_all(stream):
+    """
+    Load all documents within the given YAML string.
+
+    :param stream: A valid YAML stream.
+    :return: List that contains all documents found in the YAML stream.
+    """
+    return list(load_all_gen(stream))
+
+
+def load_all_gen(stream):
     """
     Load all documents within the given YAML string.
 
