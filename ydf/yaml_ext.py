@@ -11,14 +11,14 @@ from ruamel import yaml
 from ruamel.yaml import resolver
 
 
-class OrderedLoader(yaml.Loader):
+class OrderedRoundTripLoader(yaml.RoundTripLoader):
     """
-    Extends the default YAML loader to use :class:`~collections.OrderedDict` for mapping
+    Extends the default round trip YAML loader to use :class:`~collections.OrderedDict` for mapping
     types.
     """
 
     def __init__(self, *args, **kwargs):
-        super(OrderedLoader, self).__init__(*args, **kwargs)
+        super(OrderedRoundTripLoader, self).__init__(*args, **kwargs)
         self.add_constructor(yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, self.construct_ordered_mapping)
 
     @staticmethod
@@ -27,8 +27,11 @@ class OrderedLoader(yaml.Loader):
         return collections.OrderedDict(loader.construct_pairs(node))
 
 
-def load(stream):
+def load_all(stream):
     """
-    Load the given YAML string.
+    Load all documents within the given YAML string.
+
+    :param stream: A valid YAML stream.
+    :return: Generator that yields each document found in the YAML stream.
     """
-    return yaml.load(stream, OrderedLoader)
+    return yaml.load_all(stream, OrderedRoundTripLoader)
