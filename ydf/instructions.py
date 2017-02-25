@@ -402,3 +402,18 @@ def arg_dict(arg):
     """
     name, default_value = list(arg.items())[0]
     return formatting.str_join_with_conditional_delimiter((name, default_value), '=')
+
+
+@arguments.required(name='instruction', required_type=dict)
+@arguments.required_collection_length(name='instruction', length=1)
+@arguments.required_child_instruction(name='instruction')
+@instruction(name=ONBUILD, type=dict, desc=descriptions.ONBUILD_DICT)
+def onbuild_dict(arg):
+    """
+    Convert a :class:`~dict` to a `ONBUILD` instruction.
+
+    :param arg: Dict that represents instruction arguments.
+    :return: Fully-qualified `ONBUILD` instruction.
+    """
+    instruction_func, instruction_args = arg
+    return instruction_func(instruction_args)

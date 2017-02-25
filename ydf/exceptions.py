@@ -92,3 +92,13 @@ class ArgumentCollectionLengthError(InstructionError):
     def __init__(self, name, arg, expected_length, received_length):
         msg = '[{}] - Name: {} - Expected: {} - Received: {}'.format(name, arg, expected_length, received_length)
         super(ArgumentCollectionLengthError, self).__init__(msg)
+
+
+class ArgumentInstructionUnknownError(InstructionError):
+    """
+    Exception raised when an argument that requires a child instruction is given one that is unknown.
+    """
+
+    def __init__(self, name, arg):
+        msg = '[{}] - Name: {}'.format(name, arg)
+        super(ArgumentInstructionUnknownError, self).__init__(msg)

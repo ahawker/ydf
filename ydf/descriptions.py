@@ -44,3 +44,5 @@ WORKDIR_STR = '<path>'
 
 ARG_STR = '<name>[=<default value>]'
 ARG_DICT = '{"<name>": "<default_value>"}'
+
+ONBUILD_DICT = '<instruction> <argument>'

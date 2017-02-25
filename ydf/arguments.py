@@ -146,3 +146,26 @@ def required_collection_length(name, length):
             return func(arg)
         return wrapper
     return decorator
+
+
+def required_child_instruction(name):
+    """
+    Decorate an instruction function which consumes another instruction.
+
+    :param name: Name of the instruction argument
+    """
+    def decorator(func):
+        if not meta.is_instruction(func):
+            raise exceptions.ArgumentInstructionConstraintError(func.__name__, required_child_instruction.__name__)
+
+        @functools.wraps(func)
+        def wrapper(arg):
+            instruction_name, instruction_args = list(arg.items())[0]
+
+            instruction_func = meta.get_instruction(instruction_name, type(instruction_args))
+            if not instruction_func:
+                raise exceptions.ArgumentFormatError(func.instruction_name, instruction_name)
+
+            return func((instruction_func, instruction_args))
+        return wrapper
+    return decorator
