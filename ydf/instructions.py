@@ -417,3 +417,28 @@ def onbuild_dict(arg):
     """
     instruction_func, instruction_args = arg
     return instruction_func(instruction_args)
+
+
+@arguments.required(name='signal', required_type=str)
+@instruction(name=STOPSIGNAL, type=str, desc=descriptions.STOPSIGNAL_STR)
+def stopsignal_str(arg):
+    """
+    Convert a :class:`~str` to a `STOPSIGNAL` instruction.
+
+    :param arg: String that represents instruction arguments.
+    :return: Fully-qualified `STOPSIGNAL` instruction.
+    """
+    return arg
+
+
+@arguments.required(name='signal', required_type=int)
+@arguments.required_numeric_bounds(name='signal', lower=0, upper=64)
+@instruction(name=STOPSIGNAL, type=int, desc=descriptions.STOPSIGNAL_INT)
+def stopsignal_int(arg):
+    """
+    Convert a :class:`~str` to a `STOPSIGNAL` instruction.
+
+    :param arg: String that represents instruction arguments.
+    :return: Fully-qualified `STOPSIGNAL` instruction.
+    """
+    return arg

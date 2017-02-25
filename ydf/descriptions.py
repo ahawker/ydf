@@ -46,3 +46,6 @@ ARG_STR = '<name>[=<default value>]'
 ARG_DICT = '{"<name>": "<default_value>"}'
 
 ONBUILD_DICT = '<instruction> <argument>'
+
+STOPSIGNAL_STR = '<signal>'
+STOPSIGNAL_INT = '<signal>'
