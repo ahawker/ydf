@@ -442,3 +442,27 @@ def stopsignal_int(arg):
     :return: Fully-qualified `STOPSIGNAL` instruction.
     """
     return arg
+
+
+@instruction(name=HEALTHCHECK, type=type(None), desc=descriptions.HEALTHCHECK_NONE)
+def healthcheck_none(arg):
+    """
+    Convert a :class:`~NoneType` to a `HEALTHCHECK` instruction.
+
+    :param arg: Argument that is `None`.
+    :return: Fully-qualified `HEALTHCHECK` instruction.
+    """
+    return ''
+
+
+@arguments.required_dict_key(name='cmd', required_type=(str, list, dict))
+@arguments.optional_dict_key(name='options', required_type=dict)
+@instruction(name=HEALTHCHECK, type=dict, desc=descriptions.HEALTHCHECK_DICT)
+def healthcheck_dict(arg):
+    """
+    Convert a :class:`~dict` to a `HEALTHCHECK` instruction.
+
+    :param arg: Dict that represents instruction arguments.
+    :return: Fully-qualified `HEALTHCHECK` instruction.
+    """
+    raise NotImplementedError('TODO')

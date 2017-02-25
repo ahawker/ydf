@@ -49,3 +49,6 @@ ONBUILD_DICT = '<instruction> <argument>'
 
 STOPSIGNAL_STR = '<signal>'
 STOPSIGNAL_INT = '<signal>'
+
+HEALTHCHECK_NONE = 'NONE`'
+HEALTHCHECK_DICT = '[OPTIONS] CMD <argument>'
