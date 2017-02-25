@@ -466,3 +466,27 @@ def healthcheck_dict(arg):
     :return: Fully-qualified `HEALTHCHECK` instruction.
     """
     raise NotImplementedError('TODO')
+
+
+@arguments.required(name='shell', required_type=str)
+@instruction(name=SHELL, type=str, desc=descriptions.SHELL_STR)
+def shell_str(arg):
+    """
+    Convert a :class:`~str` to a `SHELL` instruction.
+
+    :param arg: String that represents instruction arguments.
+    :return: Fully-qualified `SHELL` instruction.
+    """
+    return json.dumps(arg.split())
+
+
+@arguments.required(name='shell', required_type=list)
+@instruction(name=SHELL, type=list, desc=descriptions.SHELL_LIST)
+def shell_list(arg):
+    """
+    Convert a :class:`~list` to a `SHELL` instruction.
+
+    :param arg: List that represents instruction arguments.
+    :return: Fully-qualified `SHELL` instruction.
+    """
+    return json.dumps(arg)

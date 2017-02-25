@@ -52,3 +52,6 @@ STOPSIGNAL_INT = '<signal>'
 
 HEALTHCHECK_NONE = 'NONE`'
 HEALTHCHECK_DICT = '[OPTIONS] CMD <argument>'
+
+SHELL_STR = '<executable> <param1> <param2>'
+SHELL_LIST = '["executable", "parameters"]'
