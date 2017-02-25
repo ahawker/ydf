@@ -5,11 +5,10 @@
     Convert objects parsed from YAML to those that represent Dockerfile instructions.
 """
 
-import collections
 import functools
 import json
 
-from ydf import arguments, descriptions, formatting, meta
+from ydf import arguments, descriptions, formatting
 
 
 __all__ = []
@@ -32,16 +31,6 @@ ONBUILD = 'ONBUILD'
 STOPSIGNAL = 'STOPSIGNAL'
 HEALTHCHECK = 'HEALTHCHECK'
 SHELL = 'SHELL'
-
-
-def get_instructions():
-    """
-    Get all functions within this module that are decorated with :func:`~ydf.instructions.instruction`.
-    """
-    instructions = collections.defaultdict(dict)
-    for func in (value for key, value in globals().items() if meta.is_instruction(value)):
-        instructions[func.instruction_name][func.instruction_type] = func
-    return instructions
 
 
 def instruction(name, type, desc):
