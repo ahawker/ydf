@@ -5,3 +5,5 @@
 bumpversion
 six
 ruamel.yaml
+jinja2
+
