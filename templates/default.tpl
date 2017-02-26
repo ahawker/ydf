@@ -13,5 +13,5 @@
 # ---
 
 {% for instruction in instructions -%}
-    {{ to_docker_instruction(instruction) }}
+    {{ convert_instruction(instruction) }}
 {% endfor %}
