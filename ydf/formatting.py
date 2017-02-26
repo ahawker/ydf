@@ -92,3 +92,13 @@ def str_join_with_conditional_delimiter(parts, delimiter=DEFAULT_STR_JOIN_DELIMI
 
     delimiter = delimiter or ''
     return delimiter.join(str(part) for part in parts if part)
+
+
+def str_join_instruction_options(dct):
+    """
+    Build a string from the given dict that represents key/value pairs of optional instruction arguments.
+
+    :param dct: Collection key/value pairs to join
+    :return: Formatting string with double-dash options
+    """
+    return ''.join(('--{}={}'.format(k.lower(), v) for k, v in dct.items())) if dct else ''

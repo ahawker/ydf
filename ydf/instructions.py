@@ -8,7 +8,7 @@
 import functools
 import json
 
-from ydf import arguments, descriptions, formatting
+from ydf import arguments, descriptions, formatting, meta
 
 
 __all__ = []
@@ -31,6 +31,17 @@ ONBUILD = 'ONBUILD'
 STOPSIGNAL = 'STOPSIGNAL'
 HEALTHCHECK = 'HEALTHCHECK'
 SHELL = 'SHELL'
+
+
+def convert_instruction(instruction):
+    """
+    Convert the given instruction object (parsed from YAML) to a Dockerfile instruction string.
+
+    :param instruction: Python object representing a Dockerfile instruction.
+    :return: String representation of the Dockerfile instruction.
+    """
+    name, arg = instruction.popitem()
+    return meta.get_instruction(name, arg)(arg)
 
 
 def instruction(name, type, desc):
@@ -406,7 +417,6 @@ def arg_dict(arg):
 
 @arguments.required(name='instruction', required_type=dict)
 @arguments.required_collection_length(name='instruction', length=1)
-@arguments.required_child_instruction(name='instruction')
 @instruction(name=ONBUILD, type=dict, desc=descriptions.ONBUILD_DICT)
 def onbuild_dict(arg):
     """
@@ -415,8 +425,7 @@ def onbuild_dict(arg):
     :param arg: Dict that represents instruction arguments.
     :return: Fully-qualified `ONBUILD` instruction.
     """
-    instruction_func, instruction_args = arg
-    return instruction_func(instruction_args)
+    return convert_instruction(arg)
 
 
 @arguments.required(name='signal', required_type=str)
@@ -465,7 +474,9 @@ def healthcheck_dict(arg):
     :param arg: Dict that represents instruction arguments.
     :return: Fully-qualified `HEALTHCHECK` instruction.
     """
-    raise NotImplementedError('TODO')
+    options = formatting.str_join_instruction_options(arg.get('options'))
+    cmd = convert_instruction(dict(cmd=arg['cmd']))
+    return '{} {}'.format(options, cmd)
 
 
 @arguments.required(name='shell', required_type=str)
