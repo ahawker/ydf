@@ -160,9 +160,9 @@ def required_child_instruction(name):
 
         @functools.wraps(func)
         def wrapper(arg):
-            instruction_name, instruction_args = list(arg.items())[0]
+            instruction_name, instruction_args = arg.popitem()
 
-            instruction_func = meta.get_instruction(instruction_name, type(instruction_args))
+            instruction_func = meta.get_instruction(instruction_name, instruction_args)
             if not instruction_func:
                 raise exceptions.ArgumentFormatError(func.instruction_name, instruction_name)
 

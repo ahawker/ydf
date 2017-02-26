@@ -2,11 +2,14 @@
     ydf/meta
     ~~~~~~~~
 
-    Functionality for inspecting python objects.
+    Functionality for inspecting python objects to find instruction definitions.
 """
 
 import collections
+import importlib
 import sys
+
+from ydf import exceptions
 
 
 INSTRUCTIONS_CACHE = None
@@ -25,6 +28,27 @@ def is_instruction(func):
     return callable(func) and hasattr(func, 'instruction_name')
 
 
+def get_instruction_arg_type(arg):
+    """
+    Determine the in instruction_type from the instruction argument.
+
+    :param arg: Argument object to pass to the instruction
+    :return: A type object that maps to the instruction argument runtime type
+    """
+    if isinstance(arg, collections.Mapping):
+        return dict
+    if isinstance(arg, (list, tuple)):
+        return list
+    if isinstance(arg, str):
+        return str
+    if isinstance(arg, int):
+        return int
+    if isinstance(arg, type(None)):
+        return type(None)
+
+    raise exceptions.ArgumentUnknownType(arg)
+
+
 def get_instruction(instruction_name, instruction_type, module_name=INSTRUCTIONS_MODULE_NAME, cached=True):
     """
     Get the function that is decorated with :func:`~ydf.instructions.instruction` for the given
@@ -37,7 +61,10 @@ def get_instruction(instruction_name, instruction_type, module_name=INSTRUCTIONS
     :return:
     """
     instructions = get_instructions(module_name, cached)
-    return instructions[instruction_name.upper()][instruction_type]
+
+    instruction_name = instruction_name.upper()
+    instruction_type = get_instruction_arg_type(instruction_type)
+    return instructions[instruction_name][instruction_type]
 
 
 def get_instructions(module_name=INSTRUCTIONS_MODULE_NAME, cached=True):
@@ -50,13 +77,15 @@ def get_instructions(module_name=INSTRUCTIONS_MODULE_NAME, cached=True):
     global INSTRUCTIONS_CACHE
 
     if INSTRUCTIONS_CACHE is None or not cached:
-        module = sys.modules.get(module_name)
-        if not module:
-            raise ValueError('Module {} not found; you must import it prior to this call'.format(module_name))
+        if module_name not in sys.modules:
+            importlib.import_module(module_name)
+        module = sys.modules[module_name]
 
         INSTRUCTIONS_CACHE = collections.defaultdict(dict)
 
-        for func in (value for attr, value in ((a, getattr(module, a)) for a in dir(module)) if is_instruction(value)):
-            INSTRUCTIONS_CACHE[func.instruction_name][func.instruction_type] = func
+        for func in (val for attr, val in ((a, getattr(module, a)) for a in dir(module)) if is_instruction(val)):
+            instruction_name = func.instruction_name.upper()
+            instruction_type = func.instruction_type
+            INSTRUCTIONS_CACHE[instruction_name][instruction_type] = func
 
     return INSTRUCTIONS_CACHE

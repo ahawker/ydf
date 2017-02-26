@@ -12,6 +12,16 @@ class InstructionError(Exception):
     """
 
 
+class ArgumentUnknownType(InstructionError):
+    """
+    Exception raised when an instruction is given an argument type that we cannot process.
+    """
+
+    def __init__(self, arg):
+        msg = 'Unknown argument type {}'.format(type(arg).__name__)
+        super(ArgumentUnknownType, self).__init__(msg)
+
+
 class ArgumentInstructionConstraintError(InstructionError):
     """
     Exception raised when an argument constraint decorates on a function that is not a instruction.
