@@ -36,6 +36,7 @@ setup(
     long_description=__doc__,
     packages=['ydf'],
     install_requires=[
+        'click',
         'jinja2',
         'ruamel.yaml',
         'six'

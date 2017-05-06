@@ -2,6 +2,7 @@
 #
 # Requirements for using this package.
 
+click
 bumpversion
 six
 ruamel.yaml
