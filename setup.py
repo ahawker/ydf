@@ -35,6 +35,11 @@ setup(
     description='YAML to Dockerfile',
     long_description=__doc__,
     packages=['ydf'],
+    install_requires=[
+        'jinja2',
+        'ruamel.yaml',
+        'six'
+    ],
     classifiers=(
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
