@@ -41,6 +41,10 @@ setup(
         'ruamel.yaml',
         'six'
     ],
+    entry_points="""
+        [console_scripts]
+        ydf=ydf.cli:main
+    """,
     classifiers=(
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
