@@ -24,7 +24,7 @@ def render_vars(yaml_vars):
     :param yaml_vars: Parsed from the parsed YAML file.
     :return: Dict of all variables available to template.
     """
-    return dict(ydf=dict(version=__version__), **yaml_vars)
+    return dict(ydf=dict(version=__version__), **(yaml_vars or {}))
 
 
 def environ(path=DEFAULT_TEMPLATE_PATH, **kwargs):
