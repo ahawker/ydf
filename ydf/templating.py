@@ -11,6 +11,7 @@ import os
 from ydf import instructions, __version__
 
 
+DEFAULT_TEMPLATE_NAME = 'default.tpl'
 DEFAULT_TEMPLATE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'templates')
 
 
