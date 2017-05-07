@@ -11,7 +11,7 @@ from ruamel import yaml
 from ruamel.yaml import resolver
 
 
-__all__ = ['load_all', 'load_all_gen']
+__all__ = ['load', 'load_all', 'load_all_gen']
 
 
 class OrderedRoundTripLoader(yaml.RoundTripLoader):
@@ -28,6 +28,16 @@ class OrderedRoundTripLoader(yaml.RoundTripLoader):
     def construct_ordered_mapping(loader, node):
         loader.flatten_mapping(node)
         return collections.OrderedDict(loader.construct_pairs(node))
+
+
+def load(stream):
+    """
+    Load a single document within the given YAML string.
+
+    :param stream: A valid YAML stream.
+    :return: An :class:`~collections.OrderedDict` representation of the YAML stream.
+    """
+    return yaml.load(stream, OrderedRoundTripLoader)
 
 
 def load_all(stream):
