@@ -6,6 +6,8 @@
 """
 
 import collections
+import io
+import os
 
 from ruamel import yaml
 from ruamel.yaml import resolver
@@ -28,6 +30,17 @@ class OrderedRoundTripLoader(yaml.RoundTripLoader):
     def construct_ordered_mapping(loader, node):
         loader.flatten_mapping(node)
         return collections.OrderedDict(loader.construct_pairs(node))
+
+
+def load_file(path):
+    """
+    Load a single document from the YAML file at the given path.
+
+    :param path: Path to YAML file on disk.
+    :return: An :class:`~collections.OrderedDict` representation of the YAML stream.
+    """
+    with io.open(os.path.abspath(path), 'r') as f:
+        return load(f.read())
 
 
 def load(stream):
