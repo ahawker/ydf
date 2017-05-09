@@ -34,10 +34,16 @@ def main(yaml, variables, template, search_path, output):
     """
     YAML to Dockerfile
     """
-    yaml = yaml_ext.load(yaml.read())
-    env = templating.environ(search_path)
-    rendered = env.get_template(template).render(templating.render_vars(yaml))
-    output.write(rendered)
+    # Always include the default template directory as the last fallback search location.
+    search_path = search_path + (templating.DEFAULT_TEMPLATE_PATH,)
+
+    # Run YAML file through template rendering, parameterized by optional variables YAML file.
+    variables = yaml_ext.load_file(variables) if variables else {}
+    yaml = templating.render(variables, yaml, search_path)
+
+    # Run Dockerfile through template rendering, parameterized by YAML file.
+    dockerfile = templating.render(yaml_ext.load(yaml), template, search_path)
+    output.write(dockerfile)
 
 
 if __name__ == '__main__':
