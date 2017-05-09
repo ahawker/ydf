@@ -22,9 +22,10 @@ from ydf import templating, yaml_ext
               default=templating.DEFAULT_TEMPLATE_NAME,
               help='Name of Jinja2 template used to build Dockerfile')
 @click.option('-s', '--search-path',
-              type=click.Path(file_okay=False),
-              default=templating.DEFAULT_TEMPLATE_PATH,
-              help='File system paths to search for templates')
+              type=click.Path(file_okay=False, resolve_path=True),
+              multiple=True,
+              default=[templating.DEFAULT_TEMPLATE_PATH],
+              help='File system path to search for templates')
 @click.option('-o', '--output',
               type=click.File('w'),
               help='Dockerfile generated from translation',
