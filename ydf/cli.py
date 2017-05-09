@@ -28,8 +28,8 @@ from ydf import templating, yaml_ext
               help='File system path to search for templates')
 @click.option('-o', '--output',
               type=click.File('w'),
-              help='Dockerfile generated from translation',
-              default=sys.stdout)
+              default=sys.stdout,
+              help='Dockerfile generated from translation')
 def main(yaml, variables, template, search_path, output):
     """
     YAML to Dockerfile
