@@ -17,7 +17,7 @@ from ydf import templating, yaml_ext
 @click.option('-b', '--build-variables',
               type=click.Path(dir_okay=False),
               help='YAML file containing build variables')
-@click.option('-v', '--variables',
+@click.option('-v', '--template-variables',
               type=click.Path(dir_okay=False),
               help='YAML file containing variables to be exposed to YAML file and template during rendering')
 @click.option('-t', '--template',
@@ -33,7 +33,7 @@ from ydf import templating, yaml_ext
               type=click.File('w'),
               default=sys.stdout,
               help='Dockerfile generated from translation')
-def main(yaml, build_variables, variables, template, search_path, output):
+def main(yaml, build_variables, template_variables, template, search_path, output):
     """
     YAML to Dockerfile
     """
@@ -41,7 +41,7 @@ def main(yaml, build_variables, variables, template, search_path, output):
     search_path = search_path + (templating.DEFAULT_TEMPLATE_PATH,)
 
     # Run YAML file through template rendering, parameterized by optional variables YAML file.
-    variables = yaml_ext.load_file(variables) if variables else {}
+    variables = yaml_ext.load_file(template_variables) if template_variables else {}
     yaml = templating.render(variables, yaml, search_path)
 
     # Run Dockerfile through template rendering, parameterized by YAML file.
