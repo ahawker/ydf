@@ -80,7 +80,7 @@ def from_str(arg):
 
 @arguments.required(name='dict', required_type=dict)
 @arguments.required_dict_key(name='image', required_type=str)
-@arguments.optional_dict_key(name='tag', required_type=str, mutually_exclusive_with='digest')
+@arguments.optional_dict_key(name='tag', required_type=(str, float, int), mutually_exclusive_with='digest')
 @arguments.optional_dict_key(name='digest', required_type=str, mutually_exclusive_with='tag')
 @instruction(name=FROM, type=dict, desc='{"name": "...", "tag": "...", "digest": "..."}')
 def from_dict(arg):
