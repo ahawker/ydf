@@ -6,7 +6,8 @@
 """
 
 
-DEFAULT_LINE_BREAK = ' && \\\n'
+DEFAULT_LINE_BREAK = ' \\\n'
+DEFAULT_COMMAND_LINE_BREAK = ' && \\\n'
 DEFAULT_INDENT = 4
 DEFAULT_QUOTE_ESCAPE = False
 DEFAULT_KEY_VALUE_DELIMITER = '='
@@ -61,6 +62,20 @@ def list_with_conditional_line_breaks(lst, line_break=DEFAULT_LINE_BREAK, indent
     :return: Multi-line string that is well formed for human readers
     """
     return _line_break_join((_escape(v, quote_escape) for v in lst), line_break, indent)
+
+
+def list_with_conditional_command_line_breaks(lst, line_break=DEFAULT_COMMAND_LINE_BREAK, indent=DEFAULT_INDENT,
+                                              quote_escape=DEFAULT_QUOTE_ESCAPE):
+    """
+    Build a string with line breaks & indentation for lists of individual commands with more than one item.
+
+    :param lst: Collection of items that represent individual commands to line separate
+    :param line_break: String used to separate each item
+    :param indent: Number of spaces used to indent each new line
+    :param quote_escape: Optional flag to indicate if each item should be escaped with double quotes
+    :return: Multi-line string that is well formed for human readers
+    """
+    return list_with_conditional_line_breaks(lst, line_break, indent, quote_escape)
 
 
 def dict_with_conditional_line_breaks(dct, delimiter=DEFAULT_KEY_VALUE_DELIMITER, line_break=DEFAULT_LINE_BREAK,
