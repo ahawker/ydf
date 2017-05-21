@@ -117,7 +117,7 @@ def run_list(arg):
     :return: Fully-qualified `RUN` instruction.
     """
     indent = len(run_list.instruction_name) + 1
-    return formatting.list_with_conditional_line_breaks(arg, indent=indent, quote_escape=True)
+    return formatting.list_with_conditional_command_line_breaks(arg, indent=indent)
 
 
 @arguments.required(name='dict', required_type=dict)
