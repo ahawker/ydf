@@ -61,7 +61,7 @@ def list_with_conditional_line_breaks(lst, line_break=DEFAULT_LINE_BREAK, indent
     :param quote_escape: Optional flag to indicate if each item should be escaped with double quotes
     :return: Multi-line string that is well formed for human readers
     """
-    return _line_break_join((_escape(v, quote_escape) for v in lst), line_break, indent)
+    return _line_break_join((_escape(v.strip(), quote_escape) for v in lst), line_break, indent)
 
 
 def list_with_conditional_command_line_breaks(lst, line_break=DEFAULT_COMMAND_LINE_BREAK, indent=DEFAULT_INDENT,
@@ -90,7 +90,8 @@ def dict_with_conditional_line_breaks(dct, delimiter=DEFAULT_KEY_VALUE_DELIMITER
     :param quote_escape: Optional flag to indicate if each key and value should be escaped with double quotes
     :return: Multi-line string that is well formed for human readers
     """
-    pairs = (delimiter.join((_escape(k, quote_escape), _escape(v, quote_escape))) for k, v in dct.items())
+    pairs = (delimiter.join((_escape(k.strip(), quote_escape), _escape(v.strip(), quote_escape)))
+             for k, v in dct.items())
     return _line_break_join(pairs, line_break, indent)
 
 
