@@ -13,7 +13,7 @@ from ruamel import yaml
 from ruamel.yaml import resolver
 
 
-__all__ = ['load', 'load_all', 'load_all_gen']
+__all__ = ['load', 'load_all', 'load_all_gen', 'load_file', 'load_files']
 
 
 class OrderedRoundTripLoader(yaml.RoundTripLoader):
@@ -41,6 +41,17 @@ def load_file(path):
     """
     with io.open(os.path.abspath(path), 'r') as f:
         return load(f.read())
+
+
+def load_files(paths):
+    """
+    Load and yield a YAML document for each file path given.
+
+    :param paths: Sequence of file paths that point to YAML documents.
+    :return: A generator that yields YAML documents from the given file paths.
+    """
+    for path in paths:
+        yield load_file(path)
 
 
 def load(stream):
