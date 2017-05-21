@@ -186,7 +186,7 @@ def label_dict(arg):
     :return: Fully-qualified `LABEL` instruction.
     """
     indent = len(label_dict.instruction_name) + 1
-    return formatting.dict_with_conditional_line_breaks(arg, indent=indent)
+    return formatting.dict_with_conditional_line_breaks(arg, indent=indent, quote_escape=True)
 
 
 @arguments.required(name='int', required_type=int)
