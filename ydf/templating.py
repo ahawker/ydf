@@ -37,6 +37,7 @@ def _environ(path=DEFAULT_TEMPLATE_PATH, **kwargs):
     """
     kwargs.setdefault('trim_blocks', True)
     kwargs.setdefault('lstrip_blocks', True)
+    kwargs.setdefault('undefined', jinja2.StrictUndefined)
 
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(path), **kwargs)
     env.globals[instructions.convert_instruction.__name__] = instructions.convert_instruction
