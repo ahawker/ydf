@@ -1,0 +1,7 @@
+# ydf/requirements/dev.txt
+#
+# Requirements for using this package is a development environment.
+
+-r base.txt
+
+bumpversion
