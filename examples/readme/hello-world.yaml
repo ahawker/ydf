@@ -1,0 +1,15 @@
+meta:
+  relpath: "examples/readme/hello-world.yaml"
+  description: "A basic YAML file that prints 'Hello World' stdout when run"
+
+instructions:
+  - from:
+      image: "alpine"
+      tag: "latest"
+  - label:
+      maintainer: "andrew.r.hawker@gmail.com"
+      version: "0.0.1"
+      url: "https://github.com/ahawker/ydf/examples/readme/hello-world.yaml"
+  - env:
+      YDF: "1"
+  - cmd: "echo Hello World"
