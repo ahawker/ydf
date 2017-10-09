@@ -4,4 +4,4 @@
 
 -r base.txt
 
-bumpversion
+bumpversion==0.5.3

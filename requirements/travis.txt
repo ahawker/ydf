@@ -1,7 +1,7 @@
 # ydf/requirements/travis.txt
 #
-# Requirements for executing the crython test suite on Travis CI.
+# Requirements for executing the ydf test suite on Travis CI.
 
 -r tox.txt
 
-tox-travis
+tox-travis==0.8
