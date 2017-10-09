@@ -2,6 +2,8 @@
 #
 # Requirements for using this package.
 
+-r build.txt
+
 click
 six
 ruamel.yaml
