@@ -7,7 +7,6 @@
 
 [![PyPI Version](https://badge.fury.io/py/ydf.svg)](https://badge.fury.io/py/ydf)
 [![PyPI Versions](https://img.shields.io/pypi/pyversions/ydf.svg)](https://pypi.python.org/pypi/ydf)
-[![PyPI Downloads](https://img.shields.io/pypi/dm/ydf.svg)](https://pypi.python.org/pypi/ydf)
 
 YAML to Dockerfile.
 
