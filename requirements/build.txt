@@ -1,0 +1,5 @@
+# ydf/requirements/build.txt
+#
+# Requirements necessary to build the ydf package.
+
+setuptools==36.5.0
