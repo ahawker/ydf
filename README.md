@@ -8,6 +8,8 @@
 [![PyPI Version](https://badge.fury.io/py/ydf.svg)](https://badge.fury.io/py/ydf)
 [![PyPI Versions](https://img.shields.io/pypi/pyversions/ydf.svg)](https://pypi.python.org/pypi/ydf)
 
+[![Updates](https://pyup.io/repos/github/ahawker/ydf/shield.svg)](https://pyup.io/repos/github/ahawker/ydf/)
+
 YAML to Dockerfile.
 
 ### Status
