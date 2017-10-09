@@ -1,7 +1,11 @@
 .DEFAULT_GOAL := help
 
+.PHONY: build-install
+build-install:  ## Install dependencies required for local package building.
+	@pip install -r requirements/build.txt
+
 .PHONY: test-install
-test-install:  ## Install dependencies required for local test execution.
+test-install: build-install  ## Install dependencies required for local test execution.
 	@pip install -r requirements/test.txt
 
 .PHONY: test
@@ -9,7 +13,7 @@ test: test-install  ## Run test suite.
 	@py.test -v tests
 
 .PHONY: tox-install
-tox-install:  ## Install dependencies required for local test execution using tox.
+tox-install: build-install  ## Install dependencies required for local test execution using tox.
 	@pip install -r requirements/tox.txt
 
 .PHONY: tox
@@ -17,14 +21,14 @@ tox: tox-install  ## Run test suite using tox.
 	@tox
 
 .PHONY: travis-install
-travis-install: codeclimate-install  ## Install dependencies for travis-ci.org integration.
+travis-install: build-install codeclimate-install  ## Install dependencies for travis-ci.org integration.
 	@pip install -r requirements/travis.txt
 
 .PHONY: travis-script
 travis-script: travis-install tox  ## Entry point for travis-ci.org execution.
 
 .PHONY: codeclimate-install
-codeclimate-install:  ## Install dependencies required for codeclimate.com integration.
+codeclimate-install: build-install  ## Install dependencies required for codeclimate.com integration.
 	@pip install -r requirements/codeclimate.txt
 
 .PHONY: codeclimate
