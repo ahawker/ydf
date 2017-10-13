@@ -45,6 +45,10 @@ codeclimate:  ## Run codeclimate analysis.
 		--volume /tmp/cc:/tmp/cc \
 		codeclimate/codeclimate analyze
 
+.PHONY: scan
+scan:  ## Run safety security scan on the package dependencies.
+	@safety check
+
 .PHONY: seclint
 seclint:  ## Run bandit on the package.
 	@bandit -v -r ydf
