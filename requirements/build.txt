@@ -2,4 +2,4 @@
 #
 # Requirements necessary to build the ydf package.
 
-setuptools==37.0.0
+setuptools==38.1.0
