@@ -6,4 +6,4 @@
 
 bumpversion==0.5.3
 bandit==1.4.0
-safety==1.6.1
+safety==1.7.0
