@@ -6,5 +6,5 @@
 
 click==7.0
 six==1.11.0
-ruamel.yaml==0.15.75
+ruamel.yaml==0.15.76
 jinja2==2.10
