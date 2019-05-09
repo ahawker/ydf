@@ -5,5 +5,5 @@
 -r base.txt
 
 bumpversion==0.5.3
-bandit==1.5.1
+bandit==1.6.0
 safety==1.8.5
