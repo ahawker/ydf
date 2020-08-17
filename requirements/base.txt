@@ -4,7 +4,7 @@
 
 -r build.txt
 
-click==7.0
+click==7.1.2
 six==1.14.0
 ruamel.yaml==0.15.94; python_version == '3.4'  # pyup: ignore
 ruamel.yaml==0.16.10; python_version > '3.4'
